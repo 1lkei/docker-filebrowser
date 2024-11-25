@@ -1,21 +1,37 @@
 #!/bin/sh
 
-json_content=$(cat <<EOF
-{
-    "port": 80,
-    "baseURL": "",
-    "address": "",
-    "log": "stdout",
-    "database": "/app/database.db",
-    "root": "/srv"
-}
-EOF
-)
-
 if [ ! -f "/app/.filebrowser.json" ]; then
-    echo "\"/app/.filebrowser.json\" Not Found! Start completing the file." ; \
+    json_content=$(cat <<EOF
+    {
+        "port": 80,
+        "baseURL": "",
+        "address": "",
+        "log": "stdout",
+        "database": "/app/database/database.db",
+        "root": "/srv"
+    }
+    EOF
+    )
+    echo "\"/app/.filebrowser.json\" not found! Start completing the file." ; \
     echo "$json_content" > /app/.filebrowser.json && \
     echo "Done."
+else
+    if [ ! -s "/app/.filebrowser.json" ]; then
+        json_content=$(cat <<EOF
+        {
+            "port": 80,
+            "baseURL": "",
+            "address": "",
+            "log": "stdout",
+            "database": "/app/database/database.db",
+            "root": "/srv"
+        }
+        EOF
+        )
+        echo "\"/app/.filebrowser.json\" is empty! Start completing the file." ; \
+        echo "$json_content" > /app/.filebrowser.json && \
+        echo "Done."
+    fi
 fi
 
 chown -R ${PUID}:${PGID} /app
