@@ -7,16 +7,19 @@ RUN apk --update add ca-certificates curl tar && \
     rm linux-amd64-filebrowser.tar.gz
 
 FROM alpine:latest
-RUN apk --update add ca-certificates \
+RUN apk update && \
+    apk add --no-cache ca-certificates \
                      mailcap \
                      curl \
                      jq \
-                     su-exec
+                     su-exec && \
+    rm -rf /var/cache/apk/*
+
+WORKDIR /app
 
 RUN curl -L -o /healthcheck.sh https://github.com/filebrowser/filebrowser/raw/refs/tags/$VERSION/healthcheck.sh && \
     # curl -L -o /.filebrowser.json https://github.com/filebrowser/filebrowser/raw/refs/tags/$VERSION/docker_config.json && \
     curl -L -o /entrypoint.sh https://github.com/1lkei/docker-filebrowser/raw/refs/heads/main/entrypoint.sh && \
-    mkdir /app && \
     chmod +x /healthcheck.sh && \
     chmod +x /entrypoint.sh
 

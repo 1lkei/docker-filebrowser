@@ -38,4 +38,4 @@ chown -R ${PUID}:${PGID} /app
 
 umask ${UMASK}
 
-exec su-exec ${PUID}:${PGID} /app/filebrowser "$@"
+exec su-exec ${PUID}:${PGID} ./filebrowser "$@"
