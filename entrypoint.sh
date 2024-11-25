@@ -1,7 +1,7 @@
 #!/bin/sh
 
 if [ ! -f "/app/.filebrowser.json" ]; then
-    json_content=$(cat <<EOF
+    config=$(cat <<EOF
 {
     "port": 80,
     "baseURL": "",
@@ -13,11 +13,11 @@ if [ ! -f "/app/.filebrowser.json" ]; then
 EOF
 )
     echo "\"/app/.filebrowser.json\" not found! Start completing the file." ; \
-    echo "$json_content" > /app/.filebrowser.json && \
+    echo "$config" > /app/.filebrowser.json && \
     echo "Done."
 else
     if [ ! -s "/app/.filebrowser.json" ]; then
-        json_content=$(cat <<EOF
+        config=$(cat <<EOF
 {
     "port": 80,
     "baseURL": "",
@@ -29,7 +29,7 @@ else
 EOF
 )
         echo "\"/app/.filebrowser.json\" is empty! Start completing the file." ; \
-        echo "$json_content" > /app/.filebrowser.json && \
+        echo "$config" > /app/.filebrowser.json && \
         echo "Done."
     fi
 fi

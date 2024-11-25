@@ -3,8 +3,7 @@ ARG VERSION
 RUN apk --update add ca-certificates curl tar && \
     cd /opt && \
     curl -L -o linux-amd64-filebrowser.tar.gz https://github.com/filebrowser/filebrowser/releases/download/$VERSION/linux-amd64-filebrowser.tar.gz && \
-    tar -xzf linux-amd64-filebrowser.tar.gz && \
-    rm linux-amd64-filebrowser.tar.gz
+    tar -xzf linux-amd64-filebrowser.tar.gz
 
 FROM alpine:latest
 RUN apk update && \
@@ -12,17 +11,15 @@ RUN apk update && \
                      mailcap \
                      curl \
                      jq \
-                     su-exec && \
-    rm -rf /var/cache/apk/*
-
-# WORKDIR /app
+                     su-exec \
+    && rm -rf /var/cache/apk/*
 
 COPY --from=builder /opt/filebrowser /app/
-# COPY ./entrypoint.sh /entrypoint.sh
+COPY ./entrypoint.sh /entrypoint.sh
 
 RUN curl -L -o /healthcheck.sh https://github.com/filebrowser/filebrowser/raw/refs/tags/$VERSION/healthcheck.sh && \
     # curl -L -o /.filebrowser.json https://github.com/filebrowser/filebrowser/raw/refs/tags/$VERSION/docker_config.json && \
-    curl -L -o /entrypoint.sh https://github.com/1lkei/docker-filebrowser/raw/refs/heads/main/entrypoint.sh && \
+    # curl -L -o /entrypoint.sh https://github.com/1lkei/docker-filebrowser/raw/refs/heads/main/entrypoint.sh && \
     chmod +x /healthcheck.sh && \
     chmod +x /entrypoint.sh
 
