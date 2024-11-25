@@ -2,14 +2,14 @@
 
 if [ ! -f "/app/.filebrowser.json" ]; then
     json_content=$(cat <<EOF
-    {
-        "port": 80,
-        "baseURL": "",
-        "address": "",
-        "log": "stdout",
-        "database": "/app/database/database.db",
-        "root": "/srv"
-    }
+{
+    "port": 80,
+    "baseURL": "",
+    "address": "",
+    "log": "stdout",
+    "database": "/app/database/database.db",
+    "root": "/srv"
+}
 EOF
 )
     echo "\"/app/.filebrowser.json\" not found! Start completing the file." ; \
@@ -18,14 +18,14 @@ EOF
 else
     if [ ! -s "/app/.filebrowser.json" ]; then
         json_content=$(cat <<EOF
-        {
-            "port": 80,
-            "baseURL": "",
-            "address": "",
-            "log": "stdout",
-            "database": "/app/database/database.db",
-            "root": "/srv"
-        }
+{
+    "port": 80,
+    "baseURL": "",
+    "address": "",
+    "log": "stdout",
+    "database": "/app/database/database.db",
+    "root": "/srv"
+}
 EOF
 )
         echo "\"/app/.filebrowser.json\" is empty! Start completing the file." ; \
@@ -38,4 +38,4 @@ chown -R ${PUID}:${PGID} /app
 
 umask ${UMASK}
 
-exec su-exec ${PUID}:${PGID} ./filebrowser "$@"
+cd /app && exec su-exec ${PUID}:${PGID} ./filebrowser "$@"

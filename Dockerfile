@@ -15,7 +15,7 @@ RUN apk update && \
                      su-exec && \
     rm -rf /var/cache/apk/*
 
-WORKDIR /app
+# WORKDIR /app
 
 COPY --from=builder /opt/filebrowser /app/
 # COPY ./entrypoint.sh /entrypoint.sh
