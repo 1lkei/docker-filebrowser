@@ -1,6 +1,5 @@
-ARG VERSION
-
 FROM alpine:latest AS builder
+ARG VERSION
 RUN apk --update add ca-certificates curl tar && \
     cd /opt \
     curl -L -o linux-amd64-filebrowser.tar.gz https://github.com/filebrowser/filebrowser/releases/download/$VERSION/linux-amd64-filebrowser.tar.gz && \
