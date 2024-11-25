@@ -12,6 +12,7 @@ RUN apk update && \
                      mailcap \
                      curl \
                      jq \
+                     bash \
                      su-exec && \
     rm -rf /var/cache/apk/*
 

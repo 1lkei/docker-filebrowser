@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 if [ ! -f "/app/.filebrowser.json" ]; then
     json_content=$(cat <<EOF
