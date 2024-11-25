@@ -12,18 +12,17 @@ RUN apk update && \
                      mailcap \
                      curl \
                      jq \
-                     bash \
                      su-exec && \
     rm -rf /var/cache/apk/*
 
 WORKDIR /app
 
 COPY --from=builder /opt/filebrowser /app/
-COPY ./entrypoint.sh /entrypoint.sh
+# COPY ./entrypoint.sh /entrypoint.sh
 
 RUN curl -L -o /healthcheck.sh https://github.com/filebrowser/filebrowser/raw/refs/tags/$VERSION/healthcheck.sh && \
     # curl -L -o /.filebrowser.json https://github.com/filebrowser/filebrowser/raw/refs/tags/$VERSION/docker_config.json && \
-    # curl -L -o /entrypoint.sh https://github.com/1lkei/docker-filebrowser/raw/refs/heads/main/entrypoint.sh && \
+    curl -L -o /entrypoint.sh https://github.com/1lkei/docker-filebrowser/raw/refs/heads/main/entrypoint.sh && \
     chmod +x /healthcheck.sh && \
     chmod +x /entrypoint.sh
 

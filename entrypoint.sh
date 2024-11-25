@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 if [ ! -f "/app/.filebrowser.json" ]; then
     json_content=$(cat <<EOF
@@ -10,8 +10,8 @@ if [ ! -f "/app/.filebrowser.json" ]; then
         "database": "/app/database/database.db",
         "root": "/srv"
     }
-    EOF
-    )
+EOF
+)
     echo "\"/app/.filebrowser.json\" not found! Start completing the file." ; \
     echo "$json_content" > /app/.filebrowser.json && \
     echo "Done."
@@ -26,8 +26,8 @@ else
             "database": "/app/database/database.db",
             "root": "/srv"
         }
-        EOF
-        )
+EOF
+)
         echo "\"/app/.filebrowser.json\" is empty! Start completing the file." ; \
         echo "$json_content" > /app/.filebrowser.json && \
         echo "Done."
