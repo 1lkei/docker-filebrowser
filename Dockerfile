@@ -16,8 +16,9 @@ RUN apk --update add ca-certificates \
 
 RUN curl -L -o /healthcheck.sh https://github.com/filebrowser/filebrowser/raw/refs/tags/$VERSION/healthcheck.sh && \
     curl -L -o /.filebrowser.json https://github.com/filebrowser/filebrowser/raw/refs/tags/$VERSION/docker_config.json && \
-    
-    chmod +x /healthcheck.sh  # Make the script executable
+    curl -L -o /entrypoint.sh https://github.com/1lkei/docker-filebrowser/raw/refs/heads/main/entrypoint.sh && \
+    chmod +x /healthcheck.sh && \
+    chmod +x /entrypoint.sh
 
 HEALTHCHECK --start-period=2s --interval=5s --timeout=3s \
     CMD /healthcheck.sh || exit 1
