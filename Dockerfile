@@ -14,8 +14,9 @@ RUN apk --update add ca-certificates \
                      su-exec
 
 RUN curl -L -o /healthcheck.sh https://github.com/filebrowser/filebrowser/raw/refs/tags/$VERSION/healthcheck.sh && \
-    curl -L -o /.filebrowser.json https://github.com/filebrowser/filebrowser/raw/refs/tags/$VERSION/docker_config.json && \
+    # curl -L -o /.filebrowser.json https://github.com/filebrowser/filebrowser/raw/refs/tags/$VERSION/docker_config.json && \
     curl -L -o /entrypoint.sh https://github.com/1lkei/docker-filebrowser/raw/refs/heads/main/entrypoint.sh && \
+    mkdir /app && \
     chmod +x /healthcheck.sh && \
     chmod +x /entrypoint.sh
 
@@ -26,6 +27,6 @@ VOLUME /srv
 EXPOSE 80
 ENV PUID=0 PGID=0 UMASK=022
 
-COPY --from=builder /opt/filebrowser /
+COPY --from=builder /opt/filebrowser /app/
 
 ENTRYPOINT [ "/entrypoint.sh" ]
