@@ -10,13 +10,13 @@ RUN apk update && \
 
 FROM alpine:latest
 RUN apk update && \
-    apk add --no-cache --virtual .build-deps ca-certificates \
-                                                mailcap \
-                                                curl \
-                                                jq \
-                                                su-exec \
-    apk del .build-deps && \
-    rm -rf /var/cache/apk/*
+    apk add --no-cache --virtual .build-deps \
+                                    ca-certificates \
+                                    mailcap \
+                                    curl \
+                                    jq \
+                                    su-exec \
+    && apk del .build-deps && rm -rf /var/cache/apk/*
 
 COPY --from=builder /opt/filebrowser /app/
 COPY ./entrypoint.sh /entrypoint.sh
