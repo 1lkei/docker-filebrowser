@@ -30,7 +30,6 @@ RUN curl -L -o /healthcheck.sh https://github.com/filebrowser/filebrowser/raw/re
 HEALTHCHECK --start-period=2s --interval=5s --timeout=3s \
     CMD /healthcheck.sh || exit 1
 
-VOLUME /srv
 EXPOSE 80
 ENV PUID=0 PGID=0 UMASK=022
 
