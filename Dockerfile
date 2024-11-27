@@ -1,18 +1,23 @@
 FROM alpine:latest AS builder
 ARG VERSION
-RUN apk --update add ca-certificates curl tar && \
+RUN apk update && \
+    apk add --no-cache --virtual .build-deps ca-certificates curl tar && \
     cd /opt && \
     curl -L -o linux-amd64-filebrowser.tar.gz https://github.com/filebrowser/filebrowser/releases/download/$VERSION/linux-amd64-filebrowser.tar.gz && \
-    tar -xzf linux-amd64-filebrowser.tar.gz
+    tar -xzf linux-amd64-filebrowser.tar.gz && \
+    apk del .build-deps && \
+    rm -rf /var/cache/apk/*
 
 FROM alpine:latest
 RUN apk update && \
-    apk add --no-cache ca-certificates \
-                     mailcap \
-                     curl \
-                     jq \
-                     su-exec \
-    && rm -rf /var/cache/apk/*
+    apk add --no-cache --virtual .build-deps \
+                            ca-certificates \
+                            mailcap \
+                            curl \
+                            jq \
+                            su-exec \
+    apk del .build-deps && \
+    rm -rf /var/cache/apk/*
 
 COPY --from=builder /opt/filebrowser /app/
 COPY ./entrypoint.sh /entrypoint.sh
