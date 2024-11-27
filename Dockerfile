@@ -10,12 +10,11 @@ RUN apk update && \
 
 FROM alpine:latest
 RUN apk update && \
-    apk add --no-cache --virtual .build-deps \
-                            ca-certificates \
-                            mailcap \
-                            curl \
-                            jq \
-                            su-exec \
+    apk add --no-cache --virtual .build-deps ca-certificates \
+                                                mailcap \
+                                                curl \
+                                                jq \
+                                                su-exec \
     apk del .build-deps && \
     rm -rf /var/cache/apk/*
 
